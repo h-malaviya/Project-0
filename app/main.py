@@ -1,8 +1,8 @@
 # app/main.py
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
-
-from app.database import create_indexes, ping_db
+# from app.database import create_indexes, ping_db
+from app.database2 import create_tables,ping_db
 from app.routes import router as users_router
 
 @asynccontextmanager
@@ -10,9 +10,9 @@ async def lifespan(app: FastAPI):
     # Startup logic (sync allowed here)
     if not ping_db():
         print("⚠️ Warning: MongoDB not reachable at startup")
-    create_indexes()
-    print("Indexes created successfully.")
-    
+    # create_indexes()
+    # print("Indexes created successfully.")
+    create_tables() 
     yield
 
     print("Shutting down...")
