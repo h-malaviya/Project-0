@@ -10,7 +10,12 @@ dependencies = [
     "dotenv>=0.9.9",
     "fastapi>=0.124.2",
     "motor>=3.7.1",
+    "psycopg2-binary>=2.9.11",
+    "psycopg[binary]>=3.3.2",
     "pydantic[email]>=2.12.5",
     "pymongo[srv]>=4.15.5",
+    "python-dotenv>=1.2.1",
+    "sqlalchemy>=2.0.45",
+    "typing>=3.10.0.0",
     "uvicorn>=0.38.0",
 ]

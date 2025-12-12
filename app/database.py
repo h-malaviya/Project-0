@@ -1,21 +1,31 @@
-from pymongo import MongoClient
+from pymongo import MongoClient, IndexModel, ASCENDING
 import os
 from dotenv import load_dotenv
 import certifi
 load_dotenv()
 MONGODB_URL = os.getenv("MONGODB_URL")
 
+DB_NAME = os.getenv("DB_NAME")
+
 client = MongoClient(MONGODB_URL, serverSelectionTimeoutMS=5000)
+db = client[DB_NAME]
 
-db = client.fastapi_db
+def create_indexes():
+    """
+    Ensure indexes (run at startup).
+    """
+    users = db.get_collection("users")
+    index = IndexModel([("email", ASCENDING)], unique=True)
+    users.create_indexes([index])
 
-try:
-    client.admin.command('ping')
-    print("✅ Connection successful!")
-except Exception as e:
-    print("❌ Connection failed:", e)
-
-def get_collection(name: str):
-    return db[name]
+def ping_db():
+    """
+    Simple check to ensure DB is reachable.
+    """
+    try:
+        client.admin.command("ping")
+        return True
+    except ServerSelectionTimeoutError:
+        return False
 
 

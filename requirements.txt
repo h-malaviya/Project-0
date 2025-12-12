@@ -5,3 +5,8 @@ motor
 pydantic[email]
 dotenv
 certifi
+typing
+sqlalchemy 
+psycopg[binary] 
+python-dotenv 
+psycopg2-binary
